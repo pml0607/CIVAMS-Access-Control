@@ -11,7 +11,7 @@ class MQTTClient:
         self.message_handler = message_handler
 
     def on_message(self, client, userdata, msg):
-        payload = json.loads(msg.paylod.decode())
+        payload = json.loads(msg.payload.decode())
         self.message_handler(msg.topic, payload)
 
     def start(self):
