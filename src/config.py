@@ -1,14 +1,9 @@
-# MQTT Config
-MQTT_BROKER = "10.2.11.147"
-MQTT_PORT = 8883
-MQTT_USERNAME = "lpm"
-MQTT_PASSWORD = "06072004"
-
-# Database COnfig
-DB_PATH = ""
-
-# Device Config
-RELAY_PIN = 11
-DOOR_OPEN_TIME = 5
-
-SERVER_URL = ""
+MQTT_CONFIG = {
+    'broker': 'mqtt://10.2.11.147',
+    'port': 8883,
+    'username': 'lpm',
+    'password': '06072004',
+    'ca_cert': '',
+    'server_cert':'',
+    'server_key':''
+}
