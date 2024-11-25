@@ -4,6 +4,14 @@ conn = sqlite3.connect('access_control.db')
 cursor = conn.cursor()
 
 
-cursor.execute('CREATE TABLE IF NOT EXISTS access_rules (id INTERGER PRIMARY KEY, recognize_id TEXT, department_id TEXT, access_allowed INTEGER, access_days TEXT, start_time TEXT, end_time TEXT )')
+cursor.execute('''CREATE TABLE IF NOT EXISTS access_rules (
+               id INTERGER PRIMARY KEY, 
+               recognize_id TEXT, 
+               department_id TEXT, 
+               access_allowed INTEGER, 
+               access_days TEXT, 
+               start_time TEXT, 
+               end_time TEXT )
+               ''')
 
 conn.commit()
