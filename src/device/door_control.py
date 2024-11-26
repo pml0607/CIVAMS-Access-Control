@@ -1,9 +1,9 @@
 import time
-from gpio_setup import GPIO_Setup
+from device.gpio_setup import GPIO_Setup
 from pyA20.gpio import port, gpio
 
 class DoorControl:
-	def __init__(self, pin = port.PA7):
+	def __init__(self, pin = port.PB7):
 		self.gpio_controller = GPIO_Setup(pin = pin, mode = gpio.OUTPUT)
 		self.gpio_controller.setup_gpio()
 	def open_door(self, duration = 5):

@@ -2,9 +2,9 @@ from mqtt.client import MqttClient
 from logic.access import AccessControl
 from logic.db_sync import DatabaseSync
 from logic.auth import AuthManager
+from device.gpio_setup import GPIO_Setup
 from device.door_control import DoorControl
-from database.db import Database
-
+from database import Database
 # Khởi tạo các module
 mqtt_client = MqttClient()
 access_control = AccessControl()
@@ -15,7 +15,6 @@ db = Database()
 
 def main():
     mqtt_client.connect()
-    
     # Đăng ký các topic
     mqtt_client.subscribe("topic/results/#", handle_results)
     mqtt_client.subscribe("topic/face_terminal/sync_request/", handle_sync_request)
