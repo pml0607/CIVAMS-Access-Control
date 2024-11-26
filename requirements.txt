@@ -1,4 +1,3 @@
 paho-mqtt
 requests
 pyA20
-sqlite3
