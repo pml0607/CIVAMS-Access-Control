@@ -1,4 +1,4 @@
 paho-mqtt
 requests
-RPi.GPIO
+pyA20
 sqlite3
