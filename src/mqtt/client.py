@@ -7,7 +7,7 @@ class MqttClient:
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
         self.client.username_pw_set(MQTT_CONFIG['username'], MQTT_CONFIG['password'])
-        self.client.tls_set(MQTT_CONFIG['ca_cert'], MQTT_CONFIG['server_cert'], MQTT_CONFIG['server_key'])
+        self.client.tls_set(MQTT_CONFIG['ca_cert'], MQTT_CONFIG['client_cert'], MQTT_CONFIG['client_key'])
 
     def connect(self):
         """Kết nối với MQTT broker"""
