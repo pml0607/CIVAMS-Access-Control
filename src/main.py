@@ -3,14 +3,15 @@ from logic.access import AccessControl
 from logic.db_sync import DatabaseSync
 from logic.auth import AuthManager
 from device.door_control import DoorControl
-from database import Database
+from database.db import Database
+
 # Khởi tạo các module
 mqtt_client = MqttClient()
 access_control = AccessControl()
 db_sync = DatabaseSync()
 auth_manager = AuthManager()
 door_control = DoorControl()
-db = Database()
+db = Database("database/access_control.db")
 
 def main():
     mqtt_client.connect()
@@ -25,7 +26,7 @@ def main():
 def handle_results(msg):
     """Xử lý kết quả nhận từ MQTT message (face recognition)"""
     # Kiểm tra quyền truy cập
-    if access_control.check_access(msg):
+    if access_control.check_access(msg, db):
         door_control.open_door()
     else:
         door_control.close_door()
