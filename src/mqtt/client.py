@@ -20,7 +20,7 @@ class MqttClient:
         self.client.subscribe(topic)
         self.client.message_callback_add(topic, callback)
 
-    def on_connect(self, rc):
+    def on_connect(self, client, userdata, flags, rc):
         """Callback khi kết nối thành công"""
         print(f"Connected with result code {rc}")
     
