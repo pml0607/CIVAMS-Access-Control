@@ -1,7 +1,7 @@
 import socket
 import json
 from datetime import datetime
-import sqlite3
+from database.db import Database
 class AccessControl:
 
     # Lấy thông tin địachỉ ip trong local
@@ -27,16 +27,12 @@ class AccessControl:
 
         #Xử lí bản tin
         if (src_ip == local_machine_ip and user_id != "" and updateAt != "") :
-            conn = sqlite3.connect(db)
-            cursor = conn.cursor()
-            cursor.execute('''SELECT access_allowed, access_days, start_time, end_time
-                           FROM access_rules
-                           WHERE recognize_id =? OR department_id = ?
-                           ''', (user_id, department_id))
-            rule = cursor.fetchone()
-            
-            if rule:
-                access_allowed, access_days, start_time, end_time = rule
+            data_base = Database(db)
+            data_base.connect()
+
+            access_info = data_base.access(user_id, department_id)
+            if access_info:
+                access_allowed, access_days, start_time, end_time = access_info
                 if (access_allowed and current_day in access_days.split(",") 
                     and start_time <= current_hour <= end_time):
                     return True

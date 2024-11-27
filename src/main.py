@@ -2,7 +2,6 @@ from mqtt.client import MqttClient
 from logic.access import AccessControl
 from logic.db_sync import DatabaseSync
 from logic.auth import AuthManager
-from device.gpio_setup import GPIO_Setup
 from device.door_control import DoorControl
 from database import Database
 # Khởi tạo các module
