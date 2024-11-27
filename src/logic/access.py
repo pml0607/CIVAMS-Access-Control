@@ -24,7 +24,7 @@ class AccessControl:
         #Xử lý thời gian
 
         if not isinstance(updateAt, str):
-                print(f"Lỗi: `updateAt` không phải chuỗi, giá trị nhận được: {update_at}")
+                print(f"Lỗi: `updateAt` không phải chuỗi, giá trị nhận được: {updateAt}")
                 return False
 
         try:
