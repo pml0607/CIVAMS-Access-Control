@@ -20,11 +20,11 @@ class MqttClient:
         self.client.subscribe(topic)
         self.client.message_callback_add(topic, callback)
 
-    def on_connect(self, client, userdata, flags, rc):
+    def on_connect(self, rc):
         """Callback khi kết nối thành công"""
         print(f"Connected with result code {rc}")
     
-    def on_message(self, client, userdata, msg):
+    def on_message(self, msg):
         """Callback khi nhận tin nhắn"""
         print(f"Message received: {msg.payload.decode()}")
     
