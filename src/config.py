@@ -1,9 +1,9 @@
 MQTT_CONFIG = {
-    'broker': 'mqtt://10.2.11.147',
+    'broker': '10.2.11.147',
     'port': 8883,
     'username': 'lpm',
     'password': '06072004',
-    'ca_cert': 'certs(template)/ca.crt',
-    'client_cert':'certs(template)/client.crt',
-    'client_key':'certs(template)/client_unencrypted.key'
+    'ca_cert': '/root/CIVAMS-Access-Control/certs(template)/ca.crt',
+    'client_cert':'/root/CIVAMS-Access-Control/certs(template)/client.crt',
+    'client_key':'/root/CIVAMS-Access-Control/certs(template)/client_unencrypted.key'
 }
