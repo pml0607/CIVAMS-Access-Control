@@ -3,7 +3,7 @@ MQTT_CONFIG = {
     'port': 8883,
     'username': 'lpm',
     'password': '06072004',
-    'ca_cert': '',
-    'server_cert':'',
-    'server_key':''
+    'ca_cert': 'certs(template)/ca.crt',
+    'client_cert':'certs(template)/client.crt',
+    'client_key':'certs(template)/client_unencrypted.key'
 }
