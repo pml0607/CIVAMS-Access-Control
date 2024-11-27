@@ -23,22 +23,30 @@ def main():
     # Khởi động chương trình
     mqtt_client.loop_forever()
 
-def handle_results(msg):
+def handle_results(client, userdata, msg):
     """Xử lý kết quả nhận từ MQTT message (face recognition)"""
     # Kiểm tra quyền truy cập
-    if access_control.check_access(msg, db):
-        door_control.open_door()
-    else:
-        door_control.close_door()
+    payload = msg.payload.decode()
+    try:
+        # Kiểm tra quyền truy cập
+        if access_control.check_access(payload, db):
+            door_control.open_door()
+        else:
+            door_control.close_door()
+    except Exception as e:
+        print(f"Lỗi trong handle_results: {e}")
+
 
 def handle_sync_request(client, userdata, msg):
     """Xử lý yêu cầu đồng bộ dữ liệu"""
-    db_sync.sync(msg)
+    payload = msg.payload.decode()
+    db_sync.sync(payload)
 
-def handle_auth_token(msg):
+def handle_auth_token(client, userdata, msg):
     """Lưu token xác thực và đồng bộ với server"""
-    auth_manager.update_auth_token(msg)
-    db_sync.sync(msg)
+    payload = msg.payload.decode()
+    auth_manager.update_auth_token(payload)
+    db_sync.sync(payload)
 
 if __name__ == "__main__":
     main()
