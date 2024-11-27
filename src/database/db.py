@@ -32,7 +32,7 @@ class Database:
             self.conn.close()
 
     def access(self, user, department):
-        self.excute('''SELECT access_allowed, access_days, start_time, end_time
+        self.execute('''SELECT access_allowed, access_days, start_time, end_time
                     FROM access_control
                     WHERE recognize_id = ? AND department_id = ?
                     ''', (user, department))

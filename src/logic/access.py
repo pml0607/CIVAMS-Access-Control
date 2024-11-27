@@ -8,7 +8,7 @@ class AccessControl:
     def check_access(self, msg, db):
         hostname = socket.gethostname()
         local_machine_ip = socket.gethostbyname(hostname)
-        
+        print(local_machine_ip)
         data = json.loads(msg)
 
         """Kiểm tra quyền truy cập dựa trên thông tin nhận được từ MQTT"""
