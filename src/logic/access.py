@@ -19,7 +19,7 @@ class AccessControl:
         src_ip = data.get("src_ip")
         user_id = data.get("recognize_id")
         department_id = data.get("department_Id")
-        updateAt = data.get("updateAt")
+        updateAt = data.get("updatedAt")
 
         #Xử lý thời gian
 
