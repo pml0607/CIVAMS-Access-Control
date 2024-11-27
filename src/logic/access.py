@@ -1,7 +1,7 @@
 import socket
 import json
 from datetime import datetime
-from database.db import Database
+
 class AccessControl:
 
     # Lấy thông tin địachỉ ip trong local
@@ -27,10 +27,9 @@ class AccessControl:
 
         #Xử lí bản tin
         if (src_ip == local_machine_ip and user_id != "" and updateAt != "") :
-            data_base = Database(db)
-            data_base.connect()
+            db.connect()
 
-            access_info = data_base.access(user_id, department_id)
+            access_info = db.access(user_id, department_id)
             if access_info:
                 access_allowed, access_days, start_time, end_time = access_info
                 if (access_allowed and current_day in access_days.split(",") 
