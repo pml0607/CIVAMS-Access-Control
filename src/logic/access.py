@@ -11,19 +11,19 @@ class AccessControl:
     # Xử lý
     def check_access(self, msg, db):
         global local_machine_ip
+        data = json.loads(msg)
         timestamp = data.get("updateAt")
         current_time = datetime.fromisoformat(timestamp)
         current_day = current_time.strftime("%a")
         current_hour = current_time.strftime("%H:%M")
 
         """Kiểm tra quyền truy cập dựa trên thông tin nhận được từ MQTT"""
-        data = json.loads(msg)
         
         #Lấy thông tin từ bản tin MQTT
         src_ip = data.get("src_ip")
         user_id = data.get("recognize_id")
         department_id = data.get("department_Id")
-        updateAt = data.get("updateAT")
+        updateAt = data.get("updateAt")
 
         #Xử lí bản tin
         if (src_ip == local_machine_ip and user_id != "" and updateAt != "") :

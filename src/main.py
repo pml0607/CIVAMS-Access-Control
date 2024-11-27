@@ -11,7 +11,7 @@ access_control = AccessControl()
 db_sync = DatabaseSync()
 auth_manager = AuthManager()
 door_control = DoorControl()
-db = Database("database/access_control.db")
+db = Database("access_control.db")
 
 def main():
     mqtt_client.connect()
@@ -23,7 +23,7 @@ def main():
     # Khởi động chương trình
     mqtt_client.loop_forever()
 
-def handle_results(msg):
+def handle_results(client, userdata, msg):
     """Xử lý kết quả nhận từ MQTT message (face recognition)"""
     # Kiểm tra quyền truy cập
     if access_control.check_access(msg, db):
@@ -31,11 +31,11 @@ def handle_results(msg):
     else:
         door_control.close_door()
 
-def handle_sync_request(msg):
+def handle_sync_request(client, userdata, msg):
     """Xử lý yêu cầu đồng bộ dữ liệu"""
     db_sync.sync(msg)
 
-def handle_auth_token(msg):
+def handle_auth_token(client, userdata, msg):
     """Lưu token xác thực và đồng bộ với server"""
     auth_manager.update_auth_token(msg)
     db_sync.sync(msg)
