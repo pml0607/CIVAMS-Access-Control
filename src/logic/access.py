@@ -4,13 +4,11 @@ from datetime import datetime
 
 class AccessControl:
 
-    # Lấy thông tin địachỉ ip trong local
-    hostname = socket.gethostname()
-    local_machine_ip = socket.gethostbyname(hostname)
-
     # Xử lý
     def check_access(self, msg, db):
-        global local_machine_ip
+        hostname = socket.gethostname()
+        local_machine_ip = socket.gethostbyname(hostname)
+        
         data = json.loads(msg)
 
         """Kiểm tra quyền truy cập dựa trên thông tin nhận được từ MQTT"""
