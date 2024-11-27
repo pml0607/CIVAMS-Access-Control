@@ -12,10 +12,6 @@ class AccessControl:
     def check_access(self, msg, db):
         global local_machine_ip
         data = json.loads(msg)
-        timestamp = data.get("updateAt")
-        current_time = datetime.fromisoformat(timestamp)
-        current_day = current_time.strftime("%a")
-        current_hour = current_time.strftime("%H:%M")
 
         """Kiểm tra quyền truy cập dựa trên thông tin nhận được từ MQTT"""
         
@@ -25,6 +21,22 @@ class AccessControl:
         department_id = data.get("department_Id")
         updateAt = data.get("updateAt")
 
+        #Xử lý thời gian
+
+        if not isinstance(update_at, str):
+                print(f"Lỗi: `updateAt` không phải chuỗi, giá trị nhận được: {update_at}")
+                return False
+
+        try:
+            # Chuyển đổi thời gian từ định dạng ISO 8601 với hậu tố Z
+            if update_at.endswith("Z"):
+                update_at = update_at.replace("Z", "+00:00")
+            current_time = datetime.fromisoformat(update_at)
+        except ValueError as e:
+            print(f"Thời gian không hợp lệ trong `updateAt`: {update_at}. Lỗi: {e}")
+            return False
+        current_day = current_time.strftime("%a")
+        current_hour = current_time.strftime("%H:%M")
         #Xử lí bản tin
         if (src_ip == local_machine_ip and user_id != "" and updateAt != "") :
             db.connect()

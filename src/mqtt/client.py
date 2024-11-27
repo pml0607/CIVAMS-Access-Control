@@ -24,7 +24,7 @@ class MqttClient:
         """Callback khi kết nối thành công"""
         print(f"Connected with result code {rc}")
     
-    def on_message(self, msg):
+    def on_message(self, client, userdata, msg):
         """Callback khi nhận tin nhắn"""
         print(f"Message received: {msg.payload.decode()}")
     
