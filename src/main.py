@@ -4,6 +4,7 @@ from logic.db_sync import DatabaseSync
 from logic.auth import AuthManager
 from device.door_control import DoorControl
 from database.db import Database
+import time
 
 # Khởi tạo các module
 mqtt_client = MqttClient()
@@ -14,14 +15,21 @@ door_control = DoorControl()
 db = Database("access_control.db")
 
 def main():
-    mqtt_client.connect()
-    # Đăng ký các topic
-    mqtt_client.subscribe("topic/results/#", handle_results)
-    mqtt_client.subscribe("topic/face_terminal/sync_request/", handle_sync_request)
-    mqtt_client.subscribe("topic/Device/AuthenToken/", handle_auth_token)
+    while True:
+        try:
 
-    # Khởi động chương trình
-    mqtt_client.loop_forever()
+            mqtt_client.connect()
+            # Đăng ký các topic
+            mqtt_client.subscribe("topic/results/#", handle_results)
+            mqtt_client.subscribe("topic/face_terminal/sync_request/", handle_sync_request)
+            mqtt_client.subscribe("topic/Device/AuthenToken/", handle_auth_token)
+
+            # Khởi động chương trình
+            mqtt_client.loop_forever()
+        except Exception as e:
+            print(f"Lỗi kết nối MQTT: {e}")
+            print("Thử kết nối lại sau 5 giây...")
+            time.sleep(5)
 
 def handle_results(client, userdata, msg):
     """Xử lý kết quả nhận từ MQTT message (face recognition)"""
