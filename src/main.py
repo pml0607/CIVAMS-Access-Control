@@ -11,7 +11,7 @@ access_control = AccessControl()
 db_sync = DatabaseSync()
 auth_manager = AuthManager()
 door_control = DoorControl()
-db = Database("access_control.db")
+db = Database("database/access_control.db")
 
 def main():
     while True:
