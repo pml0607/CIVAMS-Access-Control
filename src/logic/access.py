@@ -33,17 +33,16 @@ class AccessControl:
         except ValueError as e:
             print(f"Thời gian không hợp lệ trong `updateAt`: {updateAt}. Lỗi: {e}")
             return False
-        current_day = current_time.strftime("%a")
-        current_hour = current_time.strftime("%H:%M")
+        current_day_of_week = datetime.datetime.now().weekday() + 1
+        current_hour = current_time.strftime("%H:%M:%S")
         #Xử lí bản tin
         if (src_ip == local_machine_ip and user_id != "" and updateAt != "") :
             db.connect()
 
             access_info = db.access(user_id, department_id)
             if access_info:
-                access_allowed, access_days, start_time, end_time = access_info
-                if (access_allowed and current_day in access_days.split(",") 
-                    and start_time <= current_hour <= end_time):
+                start_time, end_time = access_info
+                if (start_time <= current_hour <= end_time and current_day_of_week in range(1, 6)):
                     return True
             return False
         else:

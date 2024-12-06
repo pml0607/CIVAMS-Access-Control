@@ -35,9 +35,25 @@ class Database:
             self.conn.close()
 
     def access(self, user, department):
-        self.execute('''SELECT access_allowed, access_days, start_time, end_time
-                    FROM access_control
-                    WHERE recognize_id = ? AND department_id = ?
+        self.execute('''SELECT
+                            at.start_time,
+                            at.end_time,
+                            
+                        FROM
+                            User u
+                        JOIN
+                            AcUserTime ut ON u.id = ut.user_id
+                        JOIN
+                            AcLocation loc ON ut.location_id = loc.id
+                        JOIN
+                            AcDepartmentTime d ON loc.id = d.location_id
+                        JOIN
+                            AcTime at ON loc.id = at.location_id
+                        WHERE
+                            ut.user_id = ?  -- ID của người dùng cần kiểm tra
+                            AND ut.location_id = ?  -- ID của department cần kiểm tra
+                            
+
                     ''', (user, department))
         rule = self.fetchone()
         return rule
