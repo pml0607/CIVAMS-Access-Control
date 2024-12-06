@@ -5,6 +5,9 @@ from logic.auth import AuthManager
 from device.door_control import DoorControl
 from database.db import Database
 import time
+
+
+
 # Khởi tạo các module
 mqtt_client = MqttClient()
 access_control = AccessControl()
@@ -15,7 +18,6 @@ db = Database("database/access_control.db")
 
 def main():
     while True:
-
         try:
             mqtt_client.connect()
             # Đăng ký các topic
@@ -26,8 +28,10 @@ def main():
             # Khởi động chương trình
             mqtt_client.loop_forever()
         except Exception as e:
-            print(f"Đã xảy ra lỗi khi kết nối với MQTT: {e}")
-            print("Chờ kết nối lại sau 5 giây")
+
+            print(f"Lỗi kết nối MQTT: {e}")
+            print("Thử kết nối lại sau 5 giây...")
+
             time.sleep(5)
 
 def handle_results(client, userdata, msg):

@@ -1,3 +1,4 @@
 paho-mqtt
 requests
 pyA20
+python3-dotenv
