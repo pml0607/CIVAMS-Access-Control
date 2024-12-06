@@ -12,7 +12,9 @@ Cập nhật các thông số trong `config.py` để kết nối với MQTT bro
     ```bash
     pip install -r requirements.txt
     ```
-2. Chạy ứng dụng:
+2. Thêm file môi trường `.env` gồm API url và AUTH TOKEN
+
+3. Chạy ứng dụng:
     ```bash
     python main.py
     ```
