@@ -3,6 +3,7 @@ import json
 import logging
 from dotenv import load_dotenv
 import os
+from database.db import Database
 
 class DatabaseSync:
     def __init__(self):
@@ -32,7 +33,10 @@ class DatabaseSync:
             if not device_id or not db_update:
                 logging.error("Payload không hợp lệ hoặc thiếu thông tin cần thiết")
                 return
-
+            local_device_id = "000000004115741d"
+            if device_id != local_device_id:
+                print("deviceId không khớp")
+                return
             for table_name in db_update:
                 last_update_time = self.get_last_update_time(table_name)
 
@@ -60,6 +64,9 @@ class DatabaseSync:
         Returns:
             str: Thời gian cập nhật cuối cùng dạng ISO8601.
         """
+        db = Database("access_control.db")
+        try:
+            db.execute(f"SELECT MAX(updated_at) FROM")
         # Thay thế với truy vấn thực tế tới cơ sở dữ liệu
         return "2022-03-31T08:04:35.825Z"
 
