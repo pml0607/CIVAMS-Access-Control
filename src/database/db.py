@@ -11,9 +11,12 @@ class Database:
             self.conn = sqlite3.connect(self.db_name)
             self.cursor = self.conn.cursor()
 
-    def execute(self, query, params = ()):
+    def execute(self, query, params = None):
         self.connect()
-        self.cursor.execute(query, params)
+        if params == None:
+            self.cursor.execute(query)
+        else:
+            self.cursor.execute(query, params)
         self.conn.commit()
     
     def fetchall(self):
@@ -32,7 +35,7 @@ class Database:
             self.conn.close()
 
     def access(self, user, department):
-        self.excute('''SELECT access_allowed, access_days, start_time, end_time
+        self.execute('''SELECT access_allowed, access_days, start_time, end_time
                     FROM access_control
                     WHERE recognize_id = ? AND department_id = ?
                     ''', (user, department))
